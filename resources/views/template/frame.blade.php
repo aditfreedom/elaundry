@@ -13,7 +13,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-    <title>Admin Area - E-Laundry</title>
+    <title>{{$page}} - E-Laundry</title>
 
     <meta name="description" content="" />
 
@@ -48,12 +48,12 @@
     <link rel="stylesheet" href="{{url('admin/assets/vendor/css/pages/cards-analytics.css')}}" />
     <!-- Helpers -->
     <script src="{{url('admin/assets/vendor/js/helpers.js')}}"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
     <script src="{{url('admin/assets/vendor/js/template-customizer.js')}}"></script>
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+  
     <script src="{{url('admin/assets/js/config.js')}}"></script>
+
+    <link href="{{url('DataTables/Buttons-2.4.2/css/buttons.bootstrap5.min.css')}}" rel="stylesheet">
+    <link href="{{url('DataTables/datatables.min.css')}}" rel="stylesheet">
   </head>
 
   <body>
@@ -91,7 +91,7 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboards -->
-            <li class="menu-item active">
+            <li class="menu-item {{$page == 'Beranda'?'active':''}}">
                 <a href="{{url('user')}}" class="menu-link">
                   <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
                   <div data-i18n="Beranda">Beranda</div>
@@ -123,13 +123,13 @@
           
 
             <!-- Components -->
-            <li class="menu-header fw-light mt-4">
+            <li class="menu-header fw-light mt-4 ">
               <span class="menu-header-text">Pengguna</span>
             </li>
 
             <!-- Icons -->
-            <li class="menu-item">
-              <a href="icons-mdi.html" class="menu-link">
+            <li class="menu-item {{$page == 'Pengguna'?'active':''}}">
+              <a href="{{url('pengguna')}}" class="menu-link ">
                 <i class="menu-icon tf-icons mdi mdi-account-outline"></i>
                 <div data-i18n="Pengguna">Pengguna</div>
               </a>
@@ -219,9 +219,7 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-            @yield('content-wrapper')
-
-          
+            @yield('content-wrapper')          
             </div>
             <!-- / Content -->
 
@@ -260,7 +258,6 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{url('admin/assets/vendor/libs/jquery/jquery.js')}}"></script>
     <script src="{{url('admin/assets/vendor/libs/popper/popper.js')}}"></script>
     <script src="{{url('admin/assets/vendor/js/bootstrap.js')}}"></script>
     <script src="{{url('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
@@ -282,5 +279,35 @@
 
     <!-- Page JS -->
     <script src="{{url('admin/assets/js/dashboards-analytics.js')}}"></script>
+
+
+    <script src="{{url('admin/assets/vendor/libs/jquery/jquery.js')}}"></script>
+    <script src="{{url('DataTables/datatables.min.js')}}"></script>
+    <script src="{{url('DataTables/DataTables-1.13.8/js/dataTables.bootstrap5.min.js')}}"></script>
+    <script src="{{url('DataTables/Buttons-2.4.2/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{url('DataTables/Buttons-2.4.2/js/buttons.bootstrap5.min.js')}}"></script>
+    <script src="{{url('DataTables/JSZip-3.10.1/jszip.min.js')}}"></script>
+    <script src="{{url('DataTables/pdfmake-0.2.7/pdfmake.min.js')}}"></script>
+    <script src="{{url('DataTables/pdfmake-0.2.7/vfs_fonts.js')}}"></script>
+    <script src="{{url('DataTables/Buttons-2.4.2/js/buttons.html5.min.js')}}"></script>
+    <script src="{{url('DataTables/Buttons-2.4.2/js/buttons.print.min.js')}}"></script>
+    <script src="{{url('DataTables/Buttons-2.4.2/js/buttons.colVis.min.js')}}"></script>
+
+    <script>
+     var table = $('#example').DataTable( {
+        dom: '<<"row"<"col"B><"col"f>>>rtip',
+        buttons: [ {
+          extend: 'excel',
+          text: 'Unduh Excel',       
+          className: 'btn btn-sm',  
+        },
+        {
+          extend: 'pdf',
+          text: 'Unduh PDF',
+          className: 'btn btn-sm',  
+        },
+      ]  
+    } );
+    </script>
   </body>
 </html>

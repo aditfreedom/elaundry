@@ -11,7 +11,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('dashboard_admin');
+        $data['page'] = "Beranda";
+        return view('dashboard_admin',$data);
     }
 
     /**
@@ -27,7 +28,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

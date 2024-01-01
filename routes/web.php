@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PenggunaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +23,14 @@ Route::get('/', function () {
 
 //Route Admin Area
 Route::get('/user', [AdminController::class, 'index']);
+
+
+//Pengguna
+Route::get('/pengguna', [PenggunaController::class, 'index']);
+Route::post('/pengguna', [PenggunaController::class, 'store']);
+Route::get('/pengguna/{id}', [PenggunaController::class, 'destroy']);
+Route::get('/pengguna/detail/{id}', [PenggunaController::class, 'edit']);
+
+
+
 
