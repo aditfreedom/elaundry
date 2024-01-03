@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\LoginController;
+
 
 
 /*
@@ -22,10 +24,8 @@ Route::get('/', function () {
 
 
 //route login
-Route::get('/login', function () {
-    $data['page']= "Login";    
-    return view('login',$data);
-});
+Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'authenticate']);
 
 
 

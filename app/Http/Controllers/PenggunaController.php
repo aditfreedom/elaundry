@@ -88,6 +88,7 @@ class PenggunaController extends Controller
                     'tanggal_lahir'=>'',
                     'no_hp'=>'',
                     'role'=>'',
+                    'password'=>'',
                     'foto' => 'mimes:jpg,jpeg,png',
                     'alamat' => 'required',
                 ],
@@ -96,7 +97,7 @@ class PenggunaController extends Controller
                     'alamat.required' => 'Alamat Wajib Diisi',
                 ]
         );
-        $password = request()->input('password');
+        $password = Hash::make($validated['password']);
         $password_lama = request()->input('password_lama');
 
         $validated['foto'] = $request->file('foto');
