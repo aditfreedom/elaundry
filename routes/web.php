@@ -26,7 +26,7 @@ Route::get('/', function () {
 //route login
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
-Route::get('/logout', [LoginController::class, 'logout']);
+Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
 
 
 
@@ -35,11 +35,11 @@ Route::get('/user', [AdminController::class, 'index'])->middleware('auth');
 
 
 //Pengguna
-Route::get('/pengguna', [UserController::class, 'index']);
-Route::post('/pengguna', [UserController::class, 'store']);
-Route::get('/pengguna/{id}', [UserController::class, 'destroy']);
-Route::get('/pengguna/detail/{id}', [UserController::class, 'edit']);
-Route::put('/pengguna/{id}', [UserController::class, 'update']);
+Route::get('/pengguna', [UserController::class, 'index'])->middleware('auth');
+Route::post('/pengguna', [UserController::class, 'store'])->middleware('auth');
+Route::get('/pengguna/{id}', [UserController::class, 'destroy'])->middleware('auth');
+Route::get('/pengguna/detail/{id}', [UserController::class, 'edit'])->middleware('auth');
+Route::put('/pengguna/{id}', [UserController::class, 'update'])->middleware('auth');
 
 
 
