@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 
 
@@ -24,21 +24,22 @@ Route::get('/', function () {
 
 
 //route login
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/logout', [LoginController::class, 'logout']);
 
 
 
 //Route Admin Area
-Route::get('/user', [AdminController::class, 'index']);
+Route::get('/user', [AdminController::class, 'index'])->middleware('auth');
 
 
 //Pengguna
-Route::get('/pengguna', [PenggunaController::class, 'index']);
-Route::post('/pengguna', [PenggunaController::class, 'store']);
-Route::get('/pengguna/{id}', [PenggunaController::class, 'destroy']);
-Route::get('/pengguna/detail/{id}', [PenggunaController::class, 'edit']);
-Route::put('/pengguna/{id}', [PenggunaController::class, 'update']);
+Route::get('/pengguna', [UserController::class, 'index']);
+Route::post('/pengguna', [UserController::class, 'store']);
+Route::get('/pengguna/{id}', [UserController::class, 'destroy']);
+Route::get('/pengguna/detail/{id}', [UserController::class, 'edit']);
+Route::put('/pengguna/{id}', [UserController::class, 'update']);
 
 
 

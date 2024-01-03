@@ -177,8 +177,17 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            @php
+                                $cek_role = Auth::user()->role;
+                                $tampil_role_user="";
+                                if($cek_role==0){
+                                  $tampil_role_user="Super Admin";
+                                }else{
+                                  $tampil_role_user="Admin";
+                                }
+                            @endphp
+                            <span class="fw-semibold d-block">{{Auth::user()->nama;}}</span>
+                            <small class="text-muted">{{$tampil_role_user}}</small>
                           </div>
                         </div>
                       </a>
@@ -187,13 +196,13 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="pages-profile-user.html">
+                      <a class="dropdown-item" href="{{url('pengguna/detail/'.Auth::user()->id)}}">
                         <i class="mdi mdi-account-outline me-2"></i>
                         <span class="align-middle">Profil Saya</span>
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+                      <a class="dropdown-item" href="{{url('logout')}}">
                         <i class="mdi mdi-logout me-2"></i>
                         <span class="align-middle">Logout</span>
                       </a>

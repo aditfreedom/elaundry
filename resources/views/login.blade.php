@@ -80,7 +80,7 @@
               <h4 class="mb-2 fw-semibold text-center">E-Laundry Kabupaten Bireuen</h4>
               <p class="mb-4 text-center">Silahkan Login Untuk Melanjutkan</p>
 
-              <form id="formAuthentication" class="mb-3" action="{{url('login')}}" method="post">
+              <form class="mb-3" action="{{url('login')}}" method="post">
                 @csrf
                 <div class="form-floating form-floating-outline mb-3">
                   <input
@@ -89,7 +89,7 @@
                     id="email"
                     name="email"
                     placeholder=""
-                    autofocus value="{{ old('nip') }}"/>
+                    autofocus value="{{ old('email') }}"/>
                   <label for="email">Email</label>
                 </div>
                 <div class="mb-3">
@@ -112,15 +112,14 @@
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" name="login">Login</button>
                 </div>
-                @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                    <div class="wrap-input100 ">
-                        <p class="text-danger text-center font-weight-bold text-danger">{{ $error }}</p>
-                    </div>
-                @endforeach
-            @endif
-
               </form>
+              @if ($errors->any())
+              @foreach ($errors->all() as $error)
+                  <div class="wrap-input100 ">
+                      <p class="text-danger text-center font-weight-bold text-danger">{{ $error }}</p>
+                  </div>
+              @endforeach
+          @endif
         </div>
       </div>
     </div>

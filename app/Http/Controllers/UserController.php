@@ -1,22 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Pengguna;
-use Illuminate\Support\Facades\Hash;
-
-
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
-class PenggunaController extends Controller
+class UserController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $data['page'] = "Pengguna";
-        $data['pengguna'] = Pengguna::all()->sortBy('role');
+        $data['pengguna'] = User::all()->sortBy('role');
         return view('pengguna',$data);
     }
 
@@ -36,7 +34,7 @@ class PenggunaController extends Controller
         $validated = $request->validate(
             [
                 'nama' => 'required',
-                'email' => 'required|unique:penggunas',
+                'email' => 'required|unique:users',
                 'no_hp' => 'required',
                 'password' => 'required',
                 'role' => 'required',
@@ -51,7 +49,7 @@ class PenggunaController extends Controller
         );
 
         $validated['password'] = Hash::make($validated['password']);
-        Pengguna::create($validated);
+        User::create($validated);
         return redirect('/pengguna')->withSuccess(['Berhasil Menambahkan Data!']);
     }
 
@@ -71,7 +69,7 @@ class PenggunaController extends Controller
         $data['page'] = "Pengguna";
         
         $data['id'] = $id;
-        $data['pengguna'] = Pengguna::where('id',$id)->get();
+        $data['pengguna'] = User::where('id',$id)->get();
         return view('edit_pengguna',$data);
     }
 
@@ -115,7 +113,7 @@ class PenggunaController extends Controller
             $validated['password'] = Hash::make(request()->input('password'));
         }
 
-        $data = Pengguna::find($id);
+        $data = User::find($id);
         $data->update($validated);
         return redirect('/pengguna')->withSuccess(['Berhasil Update Data!']);
 
@@ -126,7 +124,7 @@ class PenggunaController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = Pengguna::find($id);
+        $data = User::find($id);
         $data->delete();
         return redirect('/pengguna')->withSuccess(['Berhasil Update Data!']);
     }
