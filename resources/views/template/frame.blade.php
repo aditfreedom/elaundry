@@ -54,6 +54,7 @@
 
     <link href="{{url('DataTables/Buttons-2.4.2/css/buttons.bootstrap5.min.css')}}" rel="stylesheet">
     <link href="{{url('DataTables/datatables.min.css')}}" rel="stylesheet">
+
   </head>
 
   <body>
@@ -279,6 +280,8 @@
 
     <!-- Page JS -->
     <script src="{{url('admin/assets/js/dashboards-analytics.js')}}"></script>
+
+
 
 
     <script src="{{url('admin/assets/vendor/libs/jquery/jquery.js')}}"></script>

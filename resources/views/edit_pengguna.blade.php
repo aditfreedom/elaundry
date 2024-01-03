@@ -16,64 +16,99 @@
         @endif
 
 
-    <h4 class="fw-bold py-3 mb-2 mt-0"><span class="text-muted fw-light">Admin /</span> Pengguna</h4>
+    <h4 class="fw-bold py-3 mb-2 mt-0"><span class="text-muted fw-light">Admin /</span> Edit Pengguna</h4>
     <!-- DataTable with Buttons -->
     <div class="card p-4">
       <div class="card-datatable table-responsive pt-0">
         <div class="row">
-            <div class="col"><p>Daftar Pengguna Aplikasi</p></div>
-            <div class="col">
-                <p align="right">  
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Tambah User Baru</span></span></button>
-                </p>
-            </div>
         </div>       
-       
-        <hr>
-        <table class="table table-bordered" id="example">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Nama</th>
-              <th>Email</th>
-              <th>Nomor HP</th>
-              <th>Role</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
+        
+        <form action="{{url('/pengguna/'.$id)}}" method="POST" enctype="multipart/form-data">
+          @csrf
+          @method('put')
+          @foreach ($pengguna as $data)
+          
+          <p class="fw-bold">Foto Profil</p>
+          <hr>
+
+          <div class="form-group">
             @foreach ($pengguna as $data)
                 @php
-                 $roles=$data->role;
-                 $tampil_role="";
-                 $tampil_class="";
-                 if ($roles==0) {
-                    $tampil_role="Super Admin";
-                 }elseif ($roles==1) {
-                    $tampil_role="Admin";
-                 }else{
-                    $tampil_role="User";
-                 }   
-                 if ($roles==0) {
-                    $tampil_class="btn btn-sm btn-danger";
-                 }elseif ($roles==1) {
-                    $tampil_class="btn btn-sm btn-success";
-                 }else{
-                    $tampil_class="";
-                 }   
-
+                    if ($data->foto === null) {
+                        $path="noimage.jpg";                                        
+                    } else {
+                        $path="/storage/".$data->foto;                                        
+                    }
                 @endphp
-            <tr>
-                <td>{{$loop->iteration}}</td>
-                <td>{{$data->nama}}</td>
-                <td>{{$data->email}}</td>
-                <td>{{$data->no_hp}}</td>
-                <td class="text-center"><div class="w-100 {{$tampil_class}}">{{$tampil_role}}</div></td>
-                <td class="text-center"><a class="btn btn-warning btn-sm mb-1 w-100" href="{{url('pengguna/detail/'.$data->id)}}" >Edit</a><br><a class="btn btn-danger btn-sm w-100" href="{{url('pengguna/'.$data->id)}}" onclick="return confirm('Yakin Menghapus Data?')">Hapus</a></td>
-            </tr>
+               
+            <img src="{{url($path)}}" class="rounded-circle mx-auto d-block mb-2 border" id="photopreview" style="width:200px;height:200px;">
+            <input type="hidden" name="foto_lama" class="form-control" value="{{$data->foto}}">
             @endforeach
-          </tbody>
-        </table>
+            <input type="file" name="foto" class="form-control mx-auto d-block" onchange="showPreview(event);">
+       </div>
+       <br><br>
+          <p class="fw-bold">Data Diri</p>
+          <hr>
+          <div class="form-group mb-2">
+            <label class="font-weight-bold">Nama</label>
+            <input type="text" name="nama" class="form-control" placeholder="Nama" maxlength="200" value="{{$data->nama}}">
+          </div>
+          <div class="form-group mb-2">
+            <label class="font-weight-bold">Tempat Lahir</label>
+            <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" maxlength="200" value="{{$data->tempat_lahir}}">
+          </div>
+          <div class="form-group mb-2">
+            <label class="font-weight-bold">Tanggal Lahir</label>
+            <input type="date" name="tanggal_lahir" class="form-control" placeholder="Tanggal Lahir" value="{{$data->tanggal_lahir}}">
+          </div>
+          <div class="form-group mb-2">
+            <label class="font-weight-bold">E-mail</label>
+            <input type="email" name="email" class="form-control bg-secondary text-light" placeholder="E-mail" maxlength="200" value="{{$data->email}}" readonly>
+          </div>
+          <div class="form-group mb-2">
+            <label class="font-weight-bold">No HP</label>
+            <input type="number" name="no_hp" class="form-control" placeholder="No HP" maxlength="15" value="{{$data->no_hp}}">
+          </div>
+          <div class="form-group mb-2">
+            <label class="font-weight-bold">Alamat</label>
+            <textarea name="alamat" class="form-control" cols="30" rows="10">{{$data->alamat}}</textarea>
+          </div>
+          <br>  
+          <p class="fw-bold">Keamanan</p>
+          <hr>
+          <div class="form-group mb-2">
+            <label class="font-weight-bold">Password</label>
+            <input type="hidden" name="password_lama" class="form-control" placeholder="Password" value="{{$data->password}}" maxlength="200">
+            <input type="password" name="password" class="form-control" placeholder="Kosongkan Jika Tidak Mengubah Password" maxlength="200">
+        </div>
+          @endforeach
+          <div class="form-group mb-2">
+              <label class="font-weight-bold">Role</label>
+              <select name="role" class="form-control">
+                @foreach ($pengguna as $item)
+                @php
+                    $roles = $data->role;
+                    $tampil_role = "";
+                    if ($roles==0) {
+                      $tampil_role = "Super Admin";
+                    }elseif ($roles==1) {
+                      $tampil_role = "Admin";
+                    }else {
+                      $tampil_role = "User";
+                    }
+                @endphp
+                <option selected hidden value="{{$data->role}}">{{$tampil_role}}</option>
+                @endforeach
+                <option value="0">Super Admin</option>
+                <option value="1">Admin</option>
+                <option value="2">User</option>
+              </select>
+          </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary form-control">Simpan</button>
+      </div>
+  </form>
+       
       </div>
     </div>
 
@@ -81,49 +116,15 @@
   </div>
 
   
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-        <form action="{{url('/pengguna')}}" method="POST">
-            @csrf
-            <div class="form-group mb-2">
-                <label class="font-weight-bold">Nama</label>
-                <input type="text" name="nama" class="form-control" placeholder="Nama" maxlength="200" value="{{old('nama')}}">
-            </div>
-            <div class="form-group mb-2">
-                <label class="font-weight-bold">E-mail</label>
-                <input type="email" name="email" class="form-control" placeholder="E-mail" maxlength="200" value="{{old('email')}}">
-            </div>
-            <div class="form-group mb-2">
-                <label class="font-weight-bold">No HP</label>
-                <input type="number" name="no_hp" class="form-control" placeholder="No HP" maxlength="15" value="{{old('no_hp')}}">
-            </div>
-            <div class="form-group mb-2">
-                <label class="font-weight-bold">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Password" maxlength="200">
-            </div>
-            <div class="form-group mb-2">
-                <label class="font-weight-bold">Role</label>
-                <select name="role" class="form-control">
-                    <option hidden selected value="{{old('role')}}">-- Role --</option>
-                    <option value="0">Super Admin</option>
-                    <option value="1">Admin</option>
-                    <option value="2">User</option>
-                </select>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-          <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-    </form>
-      </div>
-    </div>
-  </div>
+  
+  <script>
+    function showPreview(event){
+       if(event.target.files.length > 0){
+           var src = URL.createObjectURL(event.target.files[0]);
+           var preview = document.getElementById("photopreview");
+           preview.src = src;
+           preview.style.display = "block";
+       }
+       }
+</script>
   @endsection

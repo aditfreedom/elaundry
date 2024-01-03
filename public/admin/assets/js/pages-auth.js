@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
           username: {
             validators: {
               notEmpty: {
-                message: 'Please enter username'
+                message: 'Masukkan Username'
               },
               stringLength: {
                 min: 6,
@@ -25,17 +25,17 @@ document.addEventListener('DOMContentLoaded', function (e) {
           email: {
             validators: {
               notEmpty: {
-                message: 'Please enter your email'
+                message: 'Masukkan Email'
               },
               emailAddress: {
-                message: 'Please enter valid email address'
+                message: 'Masukkan Email Dengan Benar'
               }
             }
           },
           'email-username': {
             validators: {
               notEmpty: {
-                message: 'Please enter email / username'
+                message: 'Masukkan Email'
               },
               stringLength: {
                 min: 6,
@@ -46,11 +46,11 @@ document.addEventListener('DOMContentLoaded', function (e) {
           password: {
             validators: {
               notEmpty: {
-                message: 'Please enter your password'
+                message: 'Masukkan password'
               },
               stringLength: {
                 min: 6,
-                message: 'Password must be more than 6 characters'
+                message: 'Password minimal 8 digit'
               }
             }
           },
@@ -66,8 +66,8 @@ document.addEventListener('DOMContentLoaded', function (e) {
                 message: 'The password and its confirm are not the same'
               },
               stringLength: {
-                min: 6,
-                message: 'Password must be more than 6 characters'
+                min: 8,
+                message: 'Password minimal 8 digit'
               }
             }
           },

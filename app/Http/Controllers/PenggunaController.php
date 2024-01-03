@@ -79,7 +79,44 @@ class PenggunaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+       $validated = $request->validate(
+                [
+                    
+                    'nama' => 'required',
+                    'tempat_lahir'=>'',
+                    'tanggal_lahir'=>'',
+                    'no_hp'=>'',
+                    'role'=>'',
+                    'foto' => 'mimes:jpg,jpeg,png',
+                    'alamat' => 'required',
+                ],
+                [
+                    'nama.required' => 'Nama Wajib Diisi',
+                    'alamat.required' => 'Alamat Wajib Diisi',
+                ]
+        );
+        $password = request()->input('password');
+        $password_lama = request()->input('password_lama');
+
+        $validated['foto'] = $request->file('foto');
+
+        if ($validated['foto']===null) {
+            $validated['foto']=$request->input('foto_lama');
+        }else{
+            $validated['foto'] = $request->file('foto')->store('profil');
+        }
+        
+        if ($password === null) {
+            $validated['password'] = $password_lama;
+        } else {
+            $validated['password'] = Hash::make(request()->input('password'));
+        }
+
+        $data = Pengguna::find($id);
+        $data->update($validated);
+        return redirect('/pengguna')->withSuccess(['Berhasil Update Data!']);
+
     }
 
     /**
@@ -89,6 +126,6 @@ class PenggunaController extends Controller
     {
         $data = Pengguna::find($id);
         $data->delete();
-        return redirect('/pengguna')->withSuccess(['Berhasil Menghapus Data!']);
+        return redirect('/pengguna')->withSuccess(['Berhasil Update Data!']);
     }
 }

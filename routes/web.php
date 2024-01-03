@@ -21,6 +21,14 @@ Route::get('/', function () {
 });
 
 
+//route login
+Route::get('/login', function () {
+    $data['page']= "Login";    
+    return view('login',$data);
+});
+
+
+
 //Route Admin Area
 Route::get('/user', [AdminController::class, 'index']);
 
@@ -30,6 +38,8 @@ Route::get('/pengguna', [PenggunaController::class, 'index']);
 Route::post('/pengguna', [PenggunaController::class, 'store']);
 Route::get('/pengguna/{id}', [PenggunaController::class, 'destroy']);
 Route::get('/pengguna/detail/{id}', [PenggunaController::class, 'edit']);
+Route::put('/pengguna/{id}', [PenggunaController::class, 'update']);
+
 
 
 

@@ -15,6 +15,20 @@
             </div>
         @endif
 
+        @if (session()->has('success'))
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                      @if (is_array(session('success')))
+                            @foreach (session('success') as $message)
+                                {{ $message }}
+                            @endforeach
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </button>
+                        @else
+                            {{ session('success') }}
+                        @endif
+                    </div>
+                @endif
+
 
     <h4 class="fw-bold py-3 mb-2 mt-0"><span class="text-muted fw-light">Admin /</span> Pengguna</h4>
     <!-- DataTable with Buttons -->
@@ -102,7 +116,7 @@
             </div>
             <div class="form-group mb-2">
                 <label class="font-weight-bold">No HP</label>
-                <input type="number" name="no_hp" class="form-control" placeholder="No HP" maxlength="15" value="{{old('no_hp')}}">
+                <input type="text" name="no_hp" class="form-control" placeholder="No HP" maxlength="15" value="{{old('no_hp')}}" minlength="10">
             </div>
             <div class="form-group mb-2">
                 <label class="font-weight-bold">Password</label>
