@@ -103,8 +103,8 @@
             <li class="menu-header fw-light mt-4">
               <span class="menu-header-text">Pengaturan Toko &amp; Transaksi</span>
             </li>
-            <li class="menu-item">
-              <a href="app-email.html" class="menu-link">
+            <li class="menu-item {{$page == 'Laundry'?'active':''}}">
+              <a href="{{url('laundry')}}" class="menu-link">
                 <i class="menu-icon tf-icons mdi mdi-office-building-outline"></i>
                 <div data-i18n="Laundry">Laundry</div>
               </a>
@@ -173,7 +173,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="{{url('admin/assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="{{url('storage/'.Auth::user()->foto)}}" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">

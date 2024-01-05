@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LaundryController;
 
 
 
@@ -40,6 +41,9 @@ Route::post('/pengguna', [UserController::class, 'store'])->middleware('auth');
 Route::get('/pengguna/{id}', [UserController::class, 'destroy'])->middleware('auth');
 Route::get('/pengguna/detail/{id}', [UserController::class, 'edit'])->middleware('auth');
 Route::put('/pengguna/{id}', [UserController::class, 'update'])->middleware('auth');
+
+//Laundry
+Route::get('/laundry', [LaundryController::class, 'index'])->middleware('auth');
 
 
 
