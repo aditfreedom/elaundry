@@ -32,7 +32,6 @@
           <hr>
 
           <div class="form-group">
-            @foreach ($pengguna as $data)
                 @php
                     if ($data->foto === null) {
                         $path="noimage.jpg";                                        
@@ -47,6 +46,7 @@
             <input type="file" name="foto" class="form-control mx-auto d-block" onchange="showPreview(event);">
        </div>
        <br><br>
+       @foreach ($pengguna as $data)
           <p class="fw-bold">Data Diri</p>
           <hr>
           <div class="form-group mb-2">

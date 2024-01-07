@@ -40,8 +40,11 @@
     <link rel="stylesheet" href="{{url('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
     <link rel="stylesheet" href="{{url('admin/assets/vendor/libs/node-waves/node-waves.css')}}" />
     <link rel="stylesheet" href="{{url('admin/assets/vendor/libs/typeahead-js/typeahead.css')}}" />
+    <link rel="stylesheet" href="{{url('admin/assets/vendor/libs/select2/select2.css')}}" />
     <link rel="stylesheet" href="{{url('admin/assets/vendor/libs/apex-charts/apex-charts.css')}}" />
     <link rel="stylesheet" href="{{url('admin/assets/vendor/libs/swiper/swiper.css')}}" />
+    <link rel="stylesheet" href="{{url('admin/assets/vendor/libs/bootstrap-select/bootstrap-select.css')}}" />
+    
 
     <!-- Page CSS -->
     <link rel="stylesheet" href="{{url('admin/assets/vendor/css/pages/cards-statistics.css')}}" />
@@ -54,6 +57,8 @@
 
     <link href="{{url('DataTables/Buttons-2.4.2/css/buttons.bootstrap5.min.css')}}" rel="stylesheet">
     <link href="{{url('DataTables/datatables.min.css')}}" rel="stylesheet">
+    <link href="{{url('zindex.css')}}" rel="stylesheet">
+
 
   </head>
 
@@ -268,6 +273,8 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
+    <script src="{{url('admin/assets/vendor/libs/jquery/jquery.js')}}"></script>
+
     <script src="{{url('admin/assets/vendor/libs/popper/popper.js')}}"></script>
     <script src="{{url('admin/assets/vendor/js/bootstrap.js')}}"></script>
     <script src="{{url('admin/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
@@ -281,6 +288,7 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    {{-- <script src="{{url('admin/assets/vendor/libs/select2/select2.js')}}"></script> --}}
     <script src="{{url('admin/assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
     <script src="{{url('admin/assets/vendor/libs/swiper/swiper.js')}}"></script>
 
@@ -293,7 +301,6 @@
 
 
 
-    <script src="{{url('admin/assets/vendor/libs/jquery/jquery.js')}}"></script>
     <script src="{{url('DataTables/datatables.min.js')}}"></script>
     <script src="{{url('DataTables/DataTables-1.13.8/js/dataTables.bootstrap5.min.js')}}"></script>
     <script src="{{url('DataTables/Buttons-2.4.2/js/dataTables.buttons.min.js')}}"></script>
@@ -304,6 +311,18 @@
     <script src="{{url('DataTables/Buttons-2.4.2/js/buttons.html5.min.js')}}"></script>
     <script src="{{url('DataTables/Buttons-2.4.2/js/buttons.print.min.js')}}"></script>
     <script src="{{url('DataTables/Buttons-2.4.2/js/buttons.colVis.min.js')}}"></script>
+    <script src="{{url('admin/assets/vendor/libs/select2/select2.js')}}"></script>
+    <script src="{{url('admin/assets/vendor/libs/typeahead-js/typeahead.js')}}"></script>
+
+
+    <script>
+      $(document).ready(function() {
+        $('.select2').select2();
+    });
+    $(document).on('select2:open', () => {
+        document.querySelector('.select2-container--open .select2-search__field').focus();
+    });
+    </script>
 
     <script>
      var table = $('#example').DataTable( {

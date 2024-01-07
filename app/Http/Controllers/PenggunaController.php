@@ -80,7 +80,6 @@ class PenggunaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
        $validated = $request->validate(
                 [
                     
@@ -128,6 +127,6 @@ class PenggunaController extends Controller
     {
         $data = Pengguna::find($id);
         $data->delete();
-        return redirect('/pengguna')->withSuccess(['Berhasil Update Data!']);
+        return redirect('/pengguna')->withSuccess(['Berhasil Hapus Data!']);
     }
 }

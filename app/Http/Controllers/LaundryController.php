@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Laundry;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 
@@ -15,10 +16,10 @@ class LaundryController extends Controller
     public function index()
     {
         $data['page'] = "Laundry";
-        // $data['laundry'] = Laundry::all();
+        $data['user'] = User::all();
         $data['laundry'] = DB::table('laundries')
         ->join('users', 'laundries.id_user', '=', 'users.id')
-        ->select('users.nama as nama_admin','laundries.*')
+        ->select('users.email as email_admin','laundries.*')
         ->get();
         return view('laundry',$data);
     }
@@ -28,7 +29,14 @@ class LaundryController extends Controller
      */
     public function create()
     {
-        //
+        
+        $data['page'] = "Laundry";
+        $data['user'] = User::all();
+        $data['laundry'] = DB::table('laundries')
+        ->join('users', 'laundries.id_user', '=', 'users.id')
+        ->select('users.email as email_admin','laundries.*')
+        ->get();
+        return view('add_laundry',$data);
     }
 
     /**
@@ -36,7 +44,37 @@ class LaundryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate(
+            [
+                'nama' => 'required',
+                'desa' => 'required',
+                'kecamatan' => 'required',
+                'kabupaten' => 'required',
+                'provinsi' => 'required',
+                'alamat' => 'required',
+                'foto' => 'required|mimes:jpg,jpeg,png',
+                'id_user' => 'required',
+                'status_pengajuan' => 'required',
+                'hidden' => 'required',
+            ],
+            [
+                'nama.required' => 'Nama Wajib Diisi',
+                'desa.required' => 'Desa Wajib Diisi',
+                'kecamatan.required' => 'Kecamatan Wajib Diisi',
+                'kabupaten.required' => 'Kabupaten Wajib Diisi',
+                'provinsi.required' => 'Provinsi Wajib Diisi',
+                'alamat.required' => 'Alamat Wajib Diisi',
+                'foto.required' => 'Foto Laundry Wajib Diisi',
+                'id_user.required' => 'Admin Wajib Diisi',
+                'status_pengajuan.required' => 'Status Laundry Wajib Diisi',
+                'hidden.required' => 'Hidden Status Wajib Diisi',               
+            ]
+        );
+
+        $validated['foto'] = $request->file('foto')->store('foto_laundry');
+        Laundry::create($validated);
+        return redirect('/laundry')->withSuccess(['Berhasil Menambahkan Data!']);
+
     }
 
     /**
@@ -52,7 +90,15 @@ class LaundryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data['page'] = "Laundry";        
+        $data['id'] = $id;
+        $data['user'] = User::all();
+        $data['laundry'] = DB::table('laundries')
+        ->join('users', 'laundries.id_user', '=', 'users.id')
+        ->select('users.email as email_admin','laundries.*')
+        ->where('laundries.id',$id)
+        ->get();
+        return view('edit_laundry',$data);
     }
 
     /**
@@ -60,7 +106,41 @@ class LaundryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate(
+            [
+                'nama' => 'required',
+                'desa' => 'required',
+                'kecamatan' => 'required',
+                'kabupaten' => 'required',
+                'provinsi' => 'required',
+                'alamat' => 'required',
+                'foto' => 'mimes:jpg,jpeg,png',
+                'id_user' => 'required',
+                'status_pengajuan' => 'required',
+                'hidden' => 'required',
+            ],
+            [
+                'nama.required' => 'Nama Wajib Diisi',
+                'desa.required' => 'Desa Wajib Diisi',
+                'kecamatan.required' => 'Kecamatan Wajib Diisi',
+                'kabupaten.required' => 'Kabupaten Wajib Diisi',
+                'provinsi.required' => 'Provinsi Wajib Diisi',
+                'alamat.required' => 'Alamat Wajib Diisi',
+                'id_user.required' => 'Admin Wajib Diisi',
+                'status_pengajuan.required' => 'Status Laundry Wajib Diisi',
+                'hidden.required' => 'Hidden Status Wajib Diisi',               
+            ]
+        );
+        $validated['foto'] = $request->file('foto');
+        if ($validated['foto']===null) {
+            $validated['foto']=$request->input('foto_lama');
+        }else{
+            $validated['foto'] = $request->file('foto')->store('foto_laundry');
+        }
+
+        $data = Laundry::find($id);
+        $data->update($validated);
+        return redirect('/laundry')->withSuccess(['Berhasil Update Data!']);
     }
 
     /**
@@ -68,6 +148,8 @@ class LaundryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $data = Laundry::find($id);
+        $data->delete();
+        return redirect('/laundry')->withSuccess(['Berhasil Hapus Data!']);
     }
 }

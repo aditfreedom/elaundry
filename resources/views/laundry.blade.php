@@ -38,7 +38,7 @@
             <div class="col"><p>Daftar Laundry</p></div>
             <div class="col">
                 <p align="right">  
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Tambah User Baru</span></span></button>
+                  <a href="{{url('laundry/add')}}" class="btn btn-sm btn-primary"><span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Tambah Laundry Baru</span></span></a>
                 </p>
             </div>
         </div>       
@@ -50,17 +50,34 @@
               <th>No</th>
               <th>Nama</th>
               <th>Alamat</th>
+              <th>Status Pengajuan</th>
               <th>Admin</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($laundry as $data)
+            @php
+                $status_pengajuan=$data->status_pengajuan;
+                $tampil_status="";
+                $class_status="";
+                if ($status_pengajuan==0) {
+                    $tampil_status="Close";
+                    $class_status="btn-danger";
+                }elseif ($status_pengajuan==1) {
+                    $tampil_status="Antrian";
+                    $class_status="btn-warning";
+                }else{
+                    $tampil_status="Approved";
+                    $class_status="btn-success";
+                }
+            @endphp
             <tr>
                 <td>{{$loop->iteration}}</td>
                 <td>{{$data->nama}}</td>
                 <td>{{$data->alamat}}</td>
-                <td class="text-center"><a class="btn btn-success w-100" href="{{url('pengguna/detail/'.$data->id_user)}}">{{$data->nama_admin}}</a></td>
+                <td><div class="btn {{$class_status}} w-100">{{$tampil_status}}</div></td>
+                <td class="text-center"><a class="btn btn-info w-100" href="{{url('pengguna/detail/'.$data->id_user)}}">{{$data->email_admin}}</a></td>
                 <td class="text-center"><a class="btn btn-warning btn-sm mb-1 w-100" href="{{url('laundry/detail/'.$data->id)}}" >Edit</a><br><a class="btn btn-danger btn-sm w-100" href="{{url('laundry/'.$data->id)}}" onclick="return confirm('Yakin Menghapus Data?')">Hapus</a></td>
             </tr>
             @endforeach
@@ -71,51 +88,15 @@
 
     <!--/ DataTable with Buttons -->
   </div>
+  <script>
+    function showPreview(event){
+       if(event.target.files.length > 0){
+           var src = URL.createObjectURL(event.target.files[0]);
+           var preview = document.getElementById("photopreview");
+           preview.src = src;
+           preview.style.display = "block";
+       }
+       }
+</script>
 
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Tambah Pengguna</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-        <form action="{{url('/pengguna')}}" method="POST">
-            @csrf
-            <div class="form-group mb-2">
-                <label class="font-weight-bold">Nama</label>
-                <input type="text" name="nama" class="form-control" placeholder="Nama" maxlength="200" value="{{old('nama')}}">
-            </div>
-            <div class="form-group mb-2">
-                <label class="font-weight-bold">E-mail</label>
-                <input type="email" name="email" class="form-control" placeholder="E-mail" maxlength="200" value="{{old('email')}}">
-            </div>
-            <div class="form-group mb-2">
-                <label class="font-weight-bold">No HP</label>
-                <input type="text" name="no_hp" class="form-control" placeholder="No HP" maxlength="15" value="{{old('no_hp')}}" minlength="10">
-            </div>
-            <div class="form-group mb-2">
-                <label class="font-weight-bold">Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Password" maxlength="200">
-            </div>
-            <div class="form-group mb-2">
-                <label class="font-weight-bold">Role</label>
-                <select name="role" class="form-control">
-                    <option hidden selected value="{{old('role')}}">-- Role --</option>
-                    <option value="0">Super Admin</option>
-                    <option value="1">Admin</option>
-                    <option value="2">User</option>
-                </select>
-            </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-          <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-    </form>
-      </div>
-    </div>
-  </div>
   @endsection

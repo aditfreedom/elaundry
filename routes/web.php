@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LaundryController;
+use App\Http\Controllers\HomePageController;
 
 
 
@@ -19,9 +20,8 @@ use App\Http\Controllers\LaundryController;
 |
 */
 
-Route::get('/', function () {
-    return view('homepage');
-});
+Route::get('/', [HomePageController::class, 'index'])->name('login')->middleware('guest');
+
 
 
 //route login
@@ -44,6 +44,13 @@ Route::put('/pengguna/{id}', [UserController::class, 'update'])->middleware('aut
 
 //Laundry
 Route::get('/laundry', [LaundryController::class, 'index'])->middleware('auth');
+Route::get('/laundry/add', [LaundryController::class, 'create'])->middleware('auth');
+Route::post('/laundry', [LaundryController::class, 'store'])->middleware('auth');
+Route::get('/laundry/{id}', [LaundryController::class, 'destroy'])->middleware('auth');
+Route::get('/laundry/detail/{id}', [LaundryController::class, 'edit'])->middleware('auth');
+Route::put('/laundry/{id}', [LaundryController::class, 'update'])->middleware('auth');
+
+
 
 
 

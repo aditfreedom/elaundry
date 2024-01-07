@@ -125,7 +125,7 @@
             <div class="form-group mb-2">
                 <label class="font-weight-bold">Role</label>
                 <select name="role" class="form-control">
-                    <option hidden selected value="{{old('role')}}">-- Role --</option>
+                    <option hidden selected value="">-- Role --</option>
                     <option value="0">Super Admin</option>
                     <option value="1">Admin</option>
                     <option value="2">User</option>
