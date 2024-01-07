@@ -66,13 +66,11 @@
           <div class="card p-2">
             <!-- Logo -->
             <div class="app-brand justify-content-center mt-5">
-              <a href="index.html" class="app-brand-link gap-2">
                 <span class="app-brand-logo demo">
                   <span style="color: #666cff">
                     <img class="img-fluid mx-auto d-block" src="{{url('favicon.png')}}" width="150px">
                   </span>
                 </span>
-              </a>
             </div>
             <!-- /Logo -->
 
