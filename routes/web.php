@@ -22,7 +22,7 @@ use App\Http\Controllers\PaketController;
 |
 */
 
-Route::get('/', [HomePageController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/', [HomePageController::class, 'index']);
 
 
 
@@ -58,6 +58,9 @@ Route::get('/paket', [PaketController::class, 'index'])->middleware('auth');
 Route::get('/paket/add', [PaketController::class, 'create'])->middleware('auth');
 Route::post('/paket', [PaketController::class, 'store'])->middleware('auth');
 Route::get('/paket/{id}', [PaketController::class, 'destroy'])->middleware('auth');
+Route::get('/paket/detail/{id}', [PaketController::class, 'edit'])->middleware('auth');
+Route::put('/paket/{id}', [PaketController::class, 'update'])->middleware('auth');
+
 
 
 
