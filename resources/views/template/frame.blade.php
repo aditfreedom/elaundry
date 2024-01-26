@@ -114,8 +114,8 @@
                 <div data-i18n="Laundry">Laundry</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="app-chat.html" class="menu-link">
+            <li class="menu-item {{$page == 'Paket'?'active':''}}">
+              <a href="{{url('/paket')}}" class="menu-link">
                 <i class="menu-icon tf-icons mdi mdi-cash"></i>
                 <div data-i18n="Paket Laundry">Paket Laundry</div>
               </a>

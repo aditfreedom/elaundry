@@ -6,6 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LaundryController;
 use App\Http\Controllers\HomePageController;
+use App\Http\Controllers\PaketController;
+
 
 
 
@@ -49,6 +51,15 @@ Route::post('/laundry', [LaundryController::class, 'store'])->middleware('auth')
 Route::get('/laundry/{id}', [LaundryController::class, 'destroy'])->middleware('auth');
 Route::get('/laundry/detail/{id}', [LaundryController::class, 'edit'])->middleware('auth');
 Route::put('/laundry/{id}', [LaundryController::class, 'update'])->middleware('auth');
+
+
+//Laundry
+Route::get('/paket', [PaketController::class, 'index'])->middleware('auth');
+Route::get('/paket/add', [PaketController::class, 'create'])->middleware('auth');
+Route::post('/paket', [PaketController::class, 'store'])->middleware('auth');
+Route::get('/paket/{id}', [PaketController::class, 'destroy'])->middleware('auth');
+
+
 
 
 
