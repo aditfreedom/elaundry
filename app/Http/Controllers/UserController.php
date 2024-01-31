@@ -14,6 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $data['page'] = "Pengguna";
+        $data['sub'] = "";
         $data['pengguna'] = User::all()->sortBy('role');
         return view('pengguna',$data);
     }

@@ -16,6 +16,7 @@ class PaketController extends Controller
     public function index()
     {
         $data['page'] = "Paket";
+        $data['sub'] = "";
         $data['paket'] = DB::table('pakets')
         ->join('laundries', 'pakets.id_toko', '=', 'laundries.id')
         ->select('laundries.nama','pakets.*')
@@ -29,6 +30,7 @@ class PaketController extends Controller
     public function create()
     {
         $data['page'] = "Paket";
+        $data['sub'] = "";
         $data['laundry'] = Laundry::all();
         return view('add_paket',$data);
     }
@@ -71,7 +73,9 @@ class PaketController extends Controller
      */
     public function edit(string $id)
     {
-        $data['page'] = "Paket";        
+        $data['page'] = "Paket";  
+        $data['sub'] = "";
+      
         $data['id'] = $id;
         $data['laundry'] = Laundry::all();
         $data['paket'] = DB::table('pakets')

@@ -12,6 +12,7 @@ class AdminController extends Controller
     public function index()
     {
         $data['page'] = "Beranda";
+        $data['sub'] = "";
         return view('dashboard_admin',$data);
     }
 

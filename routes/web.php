@@ -7,6 +7,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LaundryController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\PaketController;
+use App\Http\Controllers\TransaksiController;
+
 
 
 
@@ -60,6 +62,18 @@ Route::post('/paket', [PaketController::class, 'store'])->middleware('auth');
 Route::get('/paket/{id}', [PaketController::class, 'destroy'])->middleware('auth');
 Route::get('/paket/detail/{id}', [PaketController::class, 'edit'])->middleware('auth');
 Route::put('/paket/{id}', [PaketController::class, 'update'])->middleware('auth');
+
+//Transaksi
+Route::get('/transaksi_baru', [TransaksiController::class, 'index'])->middleware('auth');
+Route::get('/transaksi/add', [TransaksiController::class, 'create'])->middleware('auth');
+Route::post('/transaksi', [TransaksiController::class, 'store'])->middleware('auth');
+Route::get('/transaksi/{id}', [TransaksiController::class, 'destroy'])->middleware('auth');
+Route::get('/transaksi/detail/{id}', [TransaksiController::class, 'edit'])->middleware('auth');
+Route::put('/transaksi/{id}', [TransaksiController::class, 'update'])->middleware('auth');
+Route::get('/transaksi_proses', [TransaksiController::class, 'proses'])->middleware('auth');
+Route::get('/transaksi_proses/detail/{id}', [TransaksiController::class, 'editProses'])->middleware('auth');
+Route::put('/transaksi_proses/{id}', [TransaksiController::class, 'updateProses'])->middleware('auth');
+Route::get('/transaksi_selesai', [TransaksiController::class, 'selesai'])->middleware('auth');
 
 
 

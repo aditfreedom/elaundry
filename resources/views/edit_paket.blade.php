@@ -27,7 +27,7 @@
           @csrf
           @method('put')
           
-          <label>Foto Laundry</label>
+          <label>Foto Paket Laundry</label>
           <hr>
 
           <div class="form-group">

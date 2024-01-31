@@ -120,11 +120,29 @@
                 <div data-i18n="Paket Laundry">Paket Laundry</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="app-calendar.html" class="menu-link">
+            <li class="menu-item {{$page == 'Transaksi'?'open':''}}">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons mdi mdi-swap-horizontal"></i>
                 <div data-i18n="Transaksi">Transaksi</div>
               </a>
+              <ul class="menu-sub">
+                <li class="menu-item {{$sub == 'Transaksi Baru'?'active':''}}">
+                  <a href="{{url('/transaksi_baru')}}" class="menu-link">
+                    <div data-i18n="Baru">Baru</div>
+                  </a>
+                </li>
+                <li class="menu-item {{$sub == 'Transaksi Proses'?'active':''}}">
+                  <a href="{{url('/transaksi_proses')}}" class="menu-link">
+                    <div data-i18n="Proses">Proses</div>
+                  </a>
+                </li>
+                <li class="menu-item {{$sub == 'Transaksi Selesai'?'active':''}}">
+                  <a href="{{url('/transaksi_selesai')}}" class="menu-link">
+                    <div data-i18n="Selesai">Selesai</div>
+                  </a>
+                </li>
+              
+              </ul>
             </li>
           
 

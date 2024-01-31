@@ -16,6 +16,7 @@ class LaundryController extends Controller
     public function index()
     {
         $data['page'] = "Laundry";
+        $data['sub'] = "";
         $data['user'] = User::all();
         $data['laundry'] = DB::table('laundries')
         ->join('users', 'laundries.id_user', '=', 'users.id')
@@ -31,6 +32,7 @@ class LaundryController extends Controller
     {
         
         $data['page'] = "Laundry";
+        $data['sub'] = "";
         $data['user'] = User::all();
         $data['laundry'] = DB::table('laundries')
         ->join('users', 'laundries.id_user', '=', 'users.id')
@@ -90,7 +92,8 @@ class LaundryController extends Controller
      */
     public function edit(string $id)
     {
-        $data['page'] = "Laundry";        
+        $data['page'] = "Laundry";
+        $data['sub'] = "";        
         $data['id'] = $id;
         $data['user'] = User::all();
         $data['laundry'] = DB::table('laundries')
