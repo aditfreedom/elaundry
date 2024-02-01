@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -15,8 +17,16 @@ class UserController extends Controller
     {
         $data['page'] = "Pengguna";
         $data['sub'] = "";
-        $data['pengguna'] = User::all()->sortBy('role');
-        return view('pengguna',$data);
+        $role=Auth::user()->role;
+        $id_user=Auth::user()->id;
+
+        if ($role=='0') {
+            $data['pengguna'] = User::all()->sortBy('role');
+            return view('pengguna',$data);
+        }else {
+            $data['pengguna'] = User::where('id', $id_user)->get();
+            return view('pengguna',$data);
+        }
     }
 
     /**
@@ -68,6 +78,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $data['page'] = "Pengguna";
+        $data['sub'] = "";
         
         $data['id'] = $id;
         $data['pengguna'] = User::where('id',$id)->get();
@@ -97,7 +108,7 @@ class UserController extends Controller
                     'alamat.required' => 'Alamat Wajib Diisi',
                 ]
         );
-        $password = Hash::make($validated['password']);
+        $password = request()->input('password');
         $password_lama = request()->input('password_lama');
 
         $validated['foto'] = $request->file('foto');

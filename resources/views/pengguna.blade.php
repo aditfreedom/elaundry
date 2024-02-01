@@ -29,6 +29,16 @@
                     </div>
                 @endif
 
+                @php
+               $datarole=Auth::user()->role;   
+               $hidden_class="";
+               $hidden_style="";
+               if ($datarole==1) {
+                $hidden_class="hidden";
+                $hidden_style="d-none";
+               }
+              @endphp
+
 
     <h4 class="fw-bold py-3 mb-2 mt-0"><span class="text-muted fw-light">Admin /</span> Pengguna</h4>
     <!-- DataTable with Buttons -->
@@ -37,7 +47,7 @@
         <div class="row">
             <div class="col"><p>Daftar Pengguna Aplikasi</p></div>
             <div class="col">
-                <p align="right">  
+                <p align="right" {{$hidden_class}}>  
                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Tambah User Baru</span></span></button>
                 </p>
             </div>
@@ -51,7 +61,7 @@
               <th>Nama</th>
               <th>Email</th>
               <th>Nomor HP</th>
-              <th>Role</th>
+              <th {{$hidden_class}}>Role</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -82,8 +92,8 @@
                 <td>{{$data->nama}}</td>
                 <td>{{$data->email}}</td>
                 <td>{{$data->no_hp}}</td>
-                <td class="text-center"><div class="w-100 {{$tampil_class}}">{{$tampil_role}}</div></td>
-                <td class="text-center"><a class="btn btn-warning btn-sm mb-1 w-100" href="{{url('pengguna/detail/'.$data->id)}}" >Edit</a><br><a class="btn btn-danger btn-sm w-100" href="{{url('pengguna/'.$data->id)}}" onclick="return confirm('Yakin Menghapus Data?')">Hapus</a></td>
+                <td {{$hidden_class}} class="text-center"><div class="w-100 {{$tampil_class}}">{{$tampil_role}}</div></td>
+                <td class="text-center"><a class="btn btn-warning btn-sm mb-1 w-100" href="{{url('pengguna/detail/'.$data->id)}}" >Edit</a><br><a class="btn btn-danger btn-sm w-100 {{$hidden_style}}" href="{{url('pengguna/'.$data->id)}}" onclick="return confirm('Yakin Menghapus Data?')">Hapus</a></td>
             </tr>
             @endforeach
           </tbody>

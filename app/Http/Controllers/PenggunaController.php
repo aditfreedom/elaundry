@@ -16,6 +16,7 @@ class PenggunaController extends Controller
     public function index()
     {
         $data['page'] = "Pengguna";
+        $data['sub'] = "";
         $data['pengguna'] = Pengguna::all()->sortBy('role');
         return view('pengguna',$data);
     }
@@ -69,6 +70,7 @@ class PenggunaController extends Controller
     public function edit(string $id)
     {
         $data['page'] = "Pengguna";
+        $data['sub'] = "";
         
         $data['id'] = $id;
         $data['pengguna'] = Pengguna::where('id',$id)->get();

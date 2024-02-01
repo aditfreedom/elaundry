@@ -37,7 +37,15 @@
         <div class="row">
             <div class="col"><p>Daftar Laundry</p></div>
             <div class="col">
-                <p align="right">  
+              @php
+               $datarole=Auth::user()->role;   
+               $hidden_class="";
+               if ($datarole==1) {
+                $hidden_class="hidden";
+               }
+              @endphp
+
+                <p align="right" {{$hidden_class}}>  
                   <a href="{{url('laundry/add')}}" class="btn btn-sm btn-primary"><span><i class="mdi mdi-plus me-sm-1"></i> <span class="d-none d-sm-inline-block">Tambah Laundry Baru</span></span></a>
                 </p>
             </div>
@@ -52,7 +60,7 @@
               <th>Alamat</th>
               <th>Status Pengajuan</th>
               <th>Admin</th>
-              <th>Aksi</th>
+              <th {{$hidden_class}}>Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -78,7 +86,7 @@
                 <td>{{$data->alamat}}</td>
                 <td><div class="btn {{$class_status}} w-100">{{$tampil_status}}</div></td>
                 <td class="text-center"><a class="btn btn-info w-100" href="{{url('pengguna/detail/'.$data->id_user)}}">{{$data->email_admin}}</a></td>
-                <td class="text-center"><a class="btn btn-warning btn-sm mb-1 w-100" href="{{url('laundry/detail/'.$data->id)}}" >Edit</a><br><a class="btn btn-danger btn-sm w-100" href="{{url('laundry/'.$data->id)}}" onclick="return confirm('Yakin Menghapus Data?')">Hapus</a></td>
+                <td class="text-center" {{$hidden_class}}><a class="btn btn-warning btn-sm mb-1 w-100" href="{{url('laundry/detail/'.$data->id)}}" >Edit</a><br><a class="btn btn-danger btn-sm w-100" href="{{url('laundry/'.$data->id)}}" onclick="return confirm('Yakin Menghapus Data?')">Hapus</a></td>
             </tr>
             @endforeach
           </tbody>

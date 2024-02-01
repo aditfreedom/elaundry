@@ -46,6 +46,14 @@
             <input type="file" name="foto" class="form-control mx-auto d-block" onchange="showPreview(event);">
        </div>
        <br><br>
+
+       @php
+       $datarole=Auth::user()->role;   
+       $hidden_class="";
+       if ($datarole==1) {
+        $hidden_class="hidden";
+       }
+      @endphp
        @foreach ($pengguna as $data)
           <p class="fw-bold">Data Diri</p>
           <hr>
@@ -82,7 +90,7 @@
             <input type="password" name="password" class="form-control" placeholder="Kosongkan Jika Tidak Mengubah Password" maxlength="200">
         </div>
           @endforeach
-          <div class="form-group mb-2">
+          <div class="form-group mb-2" {{$hidden_class}}>
               <label class="font-weight-bold">Role</label>
               <select name="role" class="form-control">
                 @foreach ($pengguna as $item)

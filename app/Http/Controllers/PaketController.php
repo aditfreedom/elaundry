@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Laundry;
 use App\Models\Paket;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class PaketController extends Controller
@@ -17,11 +19,24 @@ class PaketController extends Controller
     {
         $data['page'] = "Paket";
         $data['sub'] = "";
+        $role=Auth::user()->role;
+        $id_user=Auth::user()->id;
+
+        if ($role=='0') {
         $data['paket'] = DB::table('pakets')
         ->join('laundries', 'pakets.id_toko', '=', 'laundries.id')
         ->select('laundries.nama','pakets.*')
         ->get();
         return view('paket',$data);
+        }
+        else{
+            $data['paket'] = DB::table('pakets')
+            ->join('laundries', 'pakets.id_toko', '=', 'laundries.id')
+            ->select('laundries.nama','pakets.*')
+            ->where('laundries.id_user',$id_user)
+            ->get();
+            return view('paket',$data);
+        }
     }
 
     /**
@@ -29,10 +44,20 @@ class PaketController extends Controller
      */
     public function create()
     {
+        
         $data['page'] = "Paket";
         $data['sub'] = "";
+        $role=Auth::user()->role;
+        $id_user=Auth::user()->id;
+
+        if ($role=='0') {
         $data['laundry'] = Laundry::all();
         return view('add_paket',$data);
+        }
+        else{
+        $data['laundry'] = Laundry::where('id_user', $id_user)->get();
+        return view('add_paket',$data);
+        }
     }
 
     /**
@@ -51,7 +76,7 @@ class PaketController extends Controller
                 'id_toko.required' => 'Nama Laundry Wajib Diisi',
                 'nama_paket.required' => 'Nama Paket Wajib Diisi',
                 'harga.required' => 'Harga Wajib Diisi',
-                'foto.required' => 'Foto Laundry Wajib Diisi',
+                'foto.required' => 'Foto Paket Laundry Wajib Diisi',
             ]
         );
 
@@ -75,8 +100,11 @@ class PaketController extends Controller
     {
         $data['page'] = "Paket";  
         $data['sub'] = "";
-      
+        $role=Auth::user()->role;
+        $id_user=Auth::user()->id;
         $data['id'] = $id;
+
+        if ($role=='0') {
         $data['laundry'] = Laundry::all();
         $data['paket'] = DB::table('pakets')
         ->join('laundries', 'pakets.id_toko', '=', 'laundries.id')
@@ -84,6 +112,16 @@ class PaketController extends Controller
         ->where('pakets.id',$id)
         ->get();
         return view('edit_paket',$data);
+        }
+        else{
+        $data['laundry'] = Laundry::where('id_user', $id_user)->get();
+        $data['paket'] = DB::table('pakets')
+        ->join('laundries', 'pakets.id_toko', '=', 'laundries.id')
+        ->select('pakets.*','laundries.nama')
+        ->where('pakets.id',$id)
+        ->get();
+        return view('edit_paket',$data);
+        }
     }
 
     /**

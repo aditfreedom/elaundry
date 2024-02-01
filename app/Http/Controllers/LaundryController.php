@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Laundry;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 
 class LaundryController extends Controller
@@ -17,12 +18,28 @@ class LaundryController extends Controller
     {
         $data['page'] = "Laundry";
         $data['sub'] = "";
-        $data['user'] = User::all();
-        $data['laundry'] = DB::table('laundries')
-        ->join('users', 'laundries.id_user', '=', 'users.id')
-        ->select('users.email as email_admin','laundries.*')
-        ->get();
-        return view('laundry',$data);
+        
+        // $data['user'] = User::all();
+
+        $role=Auth::user()->role;
+        $id_user=Auth::user()->id;
+
+        if ($role=='0') {
+            $data['laundry'] = DB::table('laundries')
+            ->join('users', 'laundries.id_user', '=', 'users.id')
+            ->select('users.email as email_admin','laundries.*')
+            ->get();       
+            return view('laundry',$data); 
+        }else{
+            $data['laundry'] = DB::table('laundries')
+            ->join('users', 'laundries.id_user', '=', 'users.id')
+            ->select('users.email as email_admin','laundries.*')
+            ->where('laundries.id_user',$id_user)
+            ->get();       
+            return view('laundry',$data); 
+        }
+
+        
     }
 
     /**
