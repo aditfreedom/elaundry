@@ -47,7 +47,7 @@
             data-allow-clear="true">
                 <option hidden value="">-- Nama Pelanggan --</option>
                 @foreach ($user as $data)
-                <option value="{{$data->id}}">{{$data->nama}} ({{$data->email}})</option>
+                <option value="{{$data->id}}">  </option>
                 @endforeach
             </select>
         </div>

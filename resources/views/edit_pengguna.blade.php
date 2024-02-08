@@ -5,7 +5,7 @@
     <div class="container-xxl flex-grow-1">
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Gagal Menambahkan Data!</strong>
+                <strong>Gagal Update Data!</strong>
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>

@@ -24,7 +24,21 @@ use App\Http\Controllers\TransaksiController;
 |
 */
 
+
+//home
 Route::get('/', [HomePageController::class, 'index']);
+Route::get('/store', [HomePageController::class, 'laundry']);
+Route::get('/store/product', [HomePageController::class, 'detail']);
+Route::get('/purchase', [HomePageController::class, 'create']);
+Route::post('/purchase', [HomePageController::class, 'confirm']);
+Route::post('/order', [HomePageController::class, 'store']);
+Route::get('/orderan', [HomePageController::class, 'orderan']);
+
+
+
+
+
+
 
 
 
@@ -32,6 +46,7 @@ Route::get('/', [HomePageController::class, 'index']);
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
+
 
 
 
@@ -45,6 +60,8 @@ Route::post('/pengguna', [UserController::class, 'store'])->middleware('auth');
 Route::get('/pengguna/{id}', [UserController::class, 'destroy'])->middleware('auth');
 Route::get('/pengguna/detail/{id}', [UserController::class, 'edit'])->middleware('auth');
 Route::put('/pengguna/{id}', [UserController::class, 'update'])->middleware('auth');
+Route::put('/userProfile/{id}', [UserController::class, 'updateUser'])->middleware('auth');
+
 
 //Laundry
 Route::get('/laundry', [LaundryController::class, 'index'])->middleware('auth');
@@ -76,7 +93,8 @@ Route::put('/transaksi_proses/{id}', [TransaksiController::class, 'updateProses'
 Route::get('/transaksi_selesai', [TransaksiController::class, 'selesai'])->middleware('auth');
 
 
-
+//User Profile
+Route::get('/profile', [HomePageController::class, 'profile'])->middleware('auth');
 
 
 

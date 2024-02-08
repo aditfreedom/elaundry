@@ -20,6 +20,10 @@ class UserController extends Controller
         $role=Auth::user()->role;
         $id_user=Auth::user()->id;
 
+        if ($role==2) {
+            return view('pengguna',$data);
+        }
+
         if ($role=='0') {
             $data['pengguna'] = User::all()->sortBy('role');
             return view('pengguna',$data);
@@ -27,6 +31,8 @@ class UserController extends Controller
             $data['pengguna'] = User::where('id', $id_user)->get();
             return view('pengguna',$data);
         }
+
+
     }
 
     /**
@@ -128,6 +134,50 @@ class UserController extends Controller
         $data = User::find($id);
         $data->update($validated);
         return redirect('/pengguna')->withSuccess(['Berhasil Update Data!']);
+
+    }
+
+
+    public function updateUser(Request $request, string $id)
+    {
+
+       $validated = $request->validate(
+                [
+                    
+                    'nama' => 'required',
+                    'tempat_lahir'=>'',
+                    'tanggal_lahir'=>'',
+                    'no_hp'=>'',
+                    'role'=>'',
+                    'password'=>'',
+                    'foto' => 'mimes:jpg,jpeg,png',
+                    'alamat' => 'required',
+                ],
+                [
+                    'nama.required' => 'Nama Wajib Diisi',
+                    'alamat.required' => 'Alamat Wajib Diisi',
+                ]
+        );
+        $password = request()->input('password');
+        $password_lama = request()->input('password_lama');
+
+        $validated['foto'] = $request->file('foto');
+
+        if ($validated['foto']===null) {
+            $validated['foto']=$request->input('foto_lama');
+        }else{
+            $validated['foto'] = $request->file('foto')->store('profil');
+        }
+        
+        if ($password === null) {
+            $validated['password'] = $password_lama;
+        } else {
+            $validated['password'] = Hash::make(request()->input('password'));
+        }
+
+        $data = User::find($id);
+        $data->update($validated);
+        return redirect('/profile')->withSuccess(['Berhasil Update Data!']);
 
     }
 

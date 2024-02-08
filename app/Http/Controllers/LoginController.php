@@ -28,7 +28,13 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/user');
+            $userAuth=Auth::user()->role;
+        
+            if ($userAuth==0 || $userAuth==1) {
+              return redirect()->intended('/user');
+            }else{
+               return redirect()->intended('/');
+            }
         }else{
             return redirect('/login')->withInput()->withErrors(['Email atau Password Salah!']);
         }

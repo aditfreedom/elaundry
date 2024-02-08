@@ -110,6 +110,17 @@
                 <div class="mb-3">
                   <button class="btn btn-primary d-grid w-100" name="login">Login</button>
                 </div>
+                <p class="text-center">
+                  <span>Belum punya akun?</span>
+                  <a href="{{url('registration')}}">
+                    <span>Buat disini</span>
+                  </a>
+                </p>
+                <p class="text-center">
+                  <a href="{{url('/')}}">
+                    <span>Kembali Ke Halaman Utama</span>
+                  </a>
+                </p>
               </form>
               @if ($errors->any())
               @foreach ($errors->all() as $error)
