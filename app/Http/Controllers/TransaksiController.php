@@ -32,7 +32,7 @@ class TransaksiController extends Controller
         ->join('users', 'transaksis.id_user', '=', 'users.id')
         ->join('laundries', 'transaksis.id_toko', '=', 'laundries.id')
         ->join('pakets', 'transaksis.id_paket', '=', 'pakets.id')
-        ->select('laundries.nama as nama_laundry','users.nama as nama_user','pakets.nama_paket','transaksis.*')
+        ->select('laundries.nama as nama_laundry','users.nama as nama_user','users.no_hp','pakets.nama_paket','transaksis.*')
         ->where('transaksis.status','Antrian')
         ->get();
         return view('transaksi',$data);
@@ -42,7 +42,7 @@ class TransaksiController extends Controller
             ->join('users', 'transaksis.id_user', '=', 'users.id')
             ->join('laundries', 'transaksis.id_toko', '=', 'laundries.id')
             ->join('pakets', 'transaksis.id_paket', '=', 'pakets.id')
-            ->select('laundries.nama as nama_laundry','users.nama as nama_user','pakets.nama_paket','transaksis.*')
+            ->select('laundries.nama as nama_laundry','users.nama as nama_user','users.no_hp','pakets.nama_paket','transaksis.*')
             ->where('laundries.id_user',$id_user)
             ->where('transaksis.status','Antrian')
             ->get();

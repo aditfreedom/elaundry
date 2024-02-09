@@ -67,7 +67,7 @@
                 <td>{{$data->berat}} Kg</td>
                 <td>Rp. {{$data->total}}</td>
                 <td>{{$data->payment}}</td>
-                <td class="text-center"><a class="btn btn-warning btn-sm mb-1 w-100" href="{{url('transaksi/detail/'.$data->id)}}" >Edit</a><br><a class="btn btn-danger btn-sm w-100" href="{{url('transaksi/'.$data->id)}}" onclick="return confirm('Yakin Menghapus Data?')">Hapus</a></td>
+                <td class="text-center"><a class="btn btn-success btn-sm mb-1 w-100" href="https://wa.me/62{{$data->no_hp}}" >WhatsApp</a><br><a class="btn btn-warning btn-sm mb-1 w-100" href="{{url('transaksi/detail/'.$data->id)}}" >Edit</a><br><a class="btn btn-danger btn-sm w-100" href="{{url('transaksi/'.$data->id)}}" onclick="return confirm('Yakin Menghapus Data?')">Hapus</a></td>
             </tr>
             @endforeach
           </tbody>

@@ -68,7 +68,7 @@
                 <td>Rp. {{$data->total}}</td>
                 <td>{{$data->payment}}</td>
                 <td>{{$data->status}}</td>
-                <td class="text-center"><a class="btn btn-success btn-sm mb-1 w-100" href="#" >Invoice WhatsApp</a> <a class="btn btn-danger btn-sm mb-1 w-100" href="#" >Invoice PDF</a></td>
+                <td class="text-center"><a class="btn btn-success btn-sm mb-1 w-100" href="{{url('invoice').'/'.$data->id}}" >Invoice</a></td>
             </tr>
             @endforeach
           </tbody>

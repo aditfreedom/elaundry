@@ -22,7 +22,7 @@ class HomePageController extends Controller
      */
     public function index()
     {
-        $data['laundry'] = Laundry::all();
+        $data['laundry'] = Laundry::take(4)->get();
         $data['page'] = "Home";
         $cekAuth=Auth::check(); 
         if ($cekAuth==1) {
@@ -169,17 +169,20 @@ class HomePageController extends Controller
     public function invoice(string $id)
     {
         $id_user=Auth::user()->id;
+        $data['id']=$id;
         $data['page']="Orderan";
         $data['transaksi'] = DB::table('transaksis')
         ->join('users', 'transaksis.id_user', '=', 'users.id')
         ->join('laundries', 'transaksis.id_toko', '=', 'laundries.id')
         ->join('pakets', 'transaksis.id_paket', '=', 'pakets.id')
-        ->select('laundries.nama as nama_laundry','users.nama as nama_user','pakets.nama_paket','transaksis.*')
-        ->where('transaksis.id_user',$id_user)
+        ->select('laundries.nama as nama_laundry','users.nama as nama_user','pakets.nama_paket','pakets.harga as harga_paket','transaksis.*')
+        ->where('transaksis.id',$id)
         ->get();
  
-	    $pdf = PDF::loadview('orderan',$data)->setOptions(['defaultFont' => 'sans-serif']);
-	    return $pdf->download('laporan-pegawai.pdf');
+        // return view('invoice',$data);
+
+	    $pdf = PDF::loadview('invoice',$data)->setOptions(['defaultFont' => 'sans-serif']);
+	    return $pdf->download('INV'.$id.'.pdf');
     }
 
 

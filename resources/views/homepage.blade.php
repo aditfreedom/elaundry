@@ -197,7 +197,7 @@
                                                     <h4>{{$data->nama}}</h4>
                                                     <p>{{$data->alamat}}<br>{{$data->kecamatan}}</p>
                                                     <div class="d-flex flex-lg-wrap justify-content-center">
-                                                        <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Lihat Paket Cucian</a>
+                                                        <a href="{{url('store/product?str='.$data->id)}}" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Lihat Paket Cucian</a>
                                                     </div>
                                                 </div>
                                             </div>

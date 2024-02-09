@@ -159,7 +159,7 @@
                                                   <td>{{$data->nama_laundry}}</td>
                                                   <td>{{$data->nama_paket}}</td>
                                                   <td>{{$data->berat}} Kg</td>
-                                                  <td>Rp. {{$data->total}}</td>
+                                                  <td>Rp. {{number_format($data->total)}}</td>
                                                   <td>{{$data->payment}}</td>
                                                   <td><p class="btn {{$class_status}}">{{$data->status}}</p></td>
                                                   <td class="text-center"><a class="btn btn-success btn-sm mb-1 w-100" href="{{url('invoice').'/'.$data->id}}" >Invoice</a></td>
