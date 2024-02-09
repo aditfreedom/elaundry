@@ -34,6 +34,8 @@ Route::post('/purchase', [HomePageController::class, 'confirm'])->middleware('au
 Route::post('/order', [HomePageController::class, 'store'])->middleware('auth');
 Route::get('/orderan', [HomePageController::class, 'orderan'])->middleware('auth');
 Route::get('/invoice/{id}', [HomePageController::class, 'invoice'])->middleware('auth');
+Route::get('/registration', [HomePageController::class, 'registration']);
+Route::post('/registration', [HomePageController::class, 'registrationProcess']);
 
 
 
@@ -48,6 +50,7 @@ Route::get('/invoice/{id}', [HomePageController::class, 'invoice'])->middleware(
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth');
+
 
 
 

@@ -10,6 +10,8 @@ use App\Models\Paket;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use Illuminate\Support\Facades\Hash;
+
 
 
 
@@ -30,6 +32,35 @@ class HomePageController extends Controller
         }else{
             return view('homepage',$data);
         }
+    }
+
+    public function registration()
+    {
+        $data['page'] = "Registrasi Pengguna";
+        return view('registration',$data);
+    }
+
+    public function registrationProcess(Request $request)
+    {
+        $validated = $request->validate(
+            [
+                'nama' => 'required',
+                'email' => 'required|unique:users',
+                'no_hp' => 'required',
+                'password' => 'required',
+                'role' => 'required',
+            ],
+            [
+                'nama.required' => 'Nama Wajib Diisi',
+                'email.required' => 'E-mail Wajib Diisi',
+                'no_hp.required' => 'No HP Wajib Diisi',
+                'password.required' => 'Password Wajib Diisi',
+            ]
+        );
+
+        $validated['password'] = Hash::make($validated['password']);
+        User::create($validated);
+        return redirect('/login')->withSuccess(['Berhasil Mendaftarkan Akun, Silahkan Login.']);
     }
 
     /**
