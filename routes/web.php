@@ -29,10 +29,12 @@ use App\Http\Controllers\TransaksiController;
 Route::get('/', [HomePageController::class, 'index']);
 Route::get('/store', [HomePageController::class, 'laundry']);
 Route::get('/store/product', [HomePageController::class, 'detail']);
-Route::get('/purchase', [HomePageController::class, 'create']);
-Route::post('/purchase', [HomePageController::class, 'confirm']);
-Route::post('/order', [HomePageController::class, 'store']);
-Route::get('/orderan', [HomePageController::class, 'orderan']);
+Route::get('/purchase', [HomePageController::class, 'create'])->middleware('auth');
+Route::post('/purchase', [HomePageController::class, 'confirm'])->middleware('auth');
+Route::post('/order', [HomePageController::class, 'store'])->middleware('auth');
+Route::get('/orderan', [HomePageController::class, 'orderan'])->middleware('auth');
+Route::get('/invoice/{id}', [HomePageController::class, 'invoice'])->middleware('auth');
+
 
 
 

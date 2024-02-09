@@ -92,20 +92,16 @@
                     <div class="col-md-12 col-lg-7">
                         <h4 class="mb-3 text-secondary">100% Laundry Syariah</h4>
                         <h1 class="mb-5 display-3 text-primary">E-Laundry Kabupaten Bireuen</h1>
-                        <div class="position-relative mx-auto">
-                            <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="number" placeholder="Nama Laundry">
-                            <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Cari Laundry</button>
-                        </div>
                     </div>
                     <div class="col-md-12 col-lg-5">
                         <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active rounded">
-                                    <img src="{{url('homepage/img/hero-img-1.png')}}" class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
+                                    <img src="{{url('slide1.jpg')}}" class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
                                     <a href="#" class="btn px-4 py-2 text-white rounded">Bersih</a>
                                 </div>
                                 <div class="carousel-item rounded">
-                                    <img src="{{url('homepage/img/hero-img-2.jpg')}}" class="img-fluid w-100 h-100 rounded" alt="Second slide">
+                                    <img src="{{url('slide1.jpg')}}" class="img-fluid w-100 h-100 rounded" alt="Second slide">
                                     <a href="#" class="btn px-4 py-2 text-white rounded">Terpercaya</a>
                                 </div>
                             </div>
@@ -207,7 +203,7 @@
                                                     <h4>{{$data->nama}}</h4>
                                                     <p>{{$data->alamat}}<br>{{$data->kecamatan}}</p>
                                                     <div class="d-flex flex-lg-wrap justify-content-center">
-                                                        <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Lihat Paket Cucian</a>
+                                                        <a href="{{url('store/product?str='.$data->id)}}" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Lihat Paket Cucian</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,58 +220,51 @@
         <!-- Fruits Shop End-->
 
 
-        <!-- Banner Section Start-->
-        <div class="container-fluid banner bg-secondary my-5">
-            <div class="container py-5">
-                <div class="row g-4 align-items-center">
-                    <div class="col-lg-6">
-                        <div class="py-4">
-                            <h1 class="display-3 text-white">Fresh Exotic Fruits</h1>
-                            <p class="fw-normal display-3 text-dark mb-4">in Our Store</p>
-                            <p class="mb-4 text-dark">The generated Lorem Ipsum is therefore always free from repetition injected humour, or non-characteristic words etc.</p>
-                            <a href="#" class="banner-btn btn border-2 border-white rounded-pill text-dark py-3 px-5">BUY</a>
-                        </div>
+       <!-- Banner Section Start-->
+       <div class="container-fluid banner bg-secondary my-5">
+        <div class="container py-5">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6">
+                    <div class="py-4">
+                        <h1 class="display-3 text-white">Pakaian Wangi dan Bersih</h1>
+                        <p class="fw-normal display-3 text-dark mb-4">Cuma disini</p>
+                        <p class="mb-4 text-dark">Dapatkan kebersihan optimal untuk pakaian Anda dengan layanan laundry kami yang profesional dan efisien.</p>
+                        <a href="{{url('store')}}" class="banner-btn btn border-2 border-white rounded-pill text-dark py-3 px-5">Cek Disini</a>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="position-relative">
-                            <img src="{{url('homepage/img/baner-1.png')}}" class="img-fluid w-100 rounded" alt="">
-                            <div class="d-flex align-items-center justify-content-center bg-white rounded-circle position-absolute" style="width: 140px; height: 140px; top: 0; left: 0;">
-                                <h1 style="font-size: 100px;">1</h1>
-                                <div class="d-flex flex-column">
-                                    <span class="h2 mb-0">50$</span>
-                                    <span class="h4 text-muted mb-0">kg</span>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="position-relative">
+                        <img src="{{url('promo.png')}}" class="img-fluid w-100 rounded" alt="">
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Banner Section End -->
+    </div>
+    <!-- Banner Section End -->
 
 
-        <!-- Tastimonial Start -->
-        <div class="container-fluid testimonial py-5">
+           <!-- Tastimonial Start -->
+           <div class="container-fluid testimonial py-5">
             <div class="container py-5">
                 <div class="testimonial-header text-center">
                     <h4 class="text-primary">Testimoni Pelanggan</h4>
-                    <h1 class="display-5 mb-5 text-dark">Apa Kata Pelanggan kami?</h1>
+                    <h1 class="display-5 mb-5 text-dark">Apa Kata Mereka?</h1>
                 </div>
                 <div class="owl-carousel testimonial-carousel">
                     <div class="testimonial-item img-border-radius bg-light rounded p-4">
                         <div class="position-relative">
                             <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
                             <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                <p class="mb-0">Pakaian saya selalu kembali bersih, rapi, dan wanginya menyenangkan setiap kali saya menggunakan layanan Laundry Bersih Rapi.
                                 </p>
                             </div>
                             <div class="d-flex align-items-center flex-nowrap">
                                 <div class="bg-secondary rounded">
-                                    <img src="{{url('homepage/img/testimonial-1.jpg')}}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                                    <img src="{{url('17.png')}}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
                                 </div>
                                 <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Client Name</h4>
-                                    <p class="m-0 pb-3">Profession</p>
+                                    <h4 class="text-dark">Muhammad Haikal</h4>
+                                    <p class="m-0 pb-3">Mahasiswa</p>
                                     <div class="d-flex pe-5">
                                         <i class="fas fa-star text-primary"></i>
                                         <i class="fas fa-star text-primary"></i>
@@ -291,16 +280,16 @@
                         <div class="position-relative">
                             <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
                             <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                <p class="mb-0">Pakaian saya selalu kembali bersih, harum, dan rapi setiap kali menggunakan layanan Laundry Cepat Bersih!
                                 </p>
                             </div>
                             <div class="d-flex align-items-center flex-nowrap">
                                 <div class="bg-secondary rounded">
-                                    <img src="{{url('homepage/img/testimonial-1.jpg')}}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                                    <img src="{{url('17.png')}}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
                                 </div>
                                 <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Client Name</h4>
-                                    <p class="m-0 pb-3">Profession</p>
+                                    <h4 class="text-dark">Muhammad Sural Fuadi</h4>
+                                    <p class="m-0 pb-3">Mahasiswa</p>
                                     <div class="d-flex pe-5">
                                         <i class="fas fa-star text-primary"></i>
                                         <i class="fas fa-star text-primary"></i>
@@ -316,16 +305,16 @@
                         <div class="position-relative">
                             <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
                             <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                <p class="mb-0">Laundry Serba Bersih tidak hanya memberikan pelayanan cepat dan efisien, tetapi juga menjaga kualitas pakaian saya dengan sangat baik!
                                 </p>
                             </div>
                             <div class="d-flex align-items-center flex-nowrap">
                                 <div class="bg-secondary rounded">
-                                    <img src="{{url('homepage/img/testimonial-1.jpg')}}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                                    <img src="{{url('17.png')}}" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
                                 </div>
                                 <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Client Name</h4>
-                                    <p class="m-0 pb-3">Profession</p>
+                                    <h4 class="text-dark">Dodi Ferdiansyah</h4>
+                                    <p class="m-0 pb-3">Mahasiswa</p>
                                     <div class="d-flex pe-5">
                                         <i class="fas fa-star text-primary"></i>
                                         <i class="fas fa-star text-primary"></i>

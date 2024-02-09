@@ -9,8 +9,7 @@ use App\Models\User;
 use App\Models\Paket;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\DB;
-
-
+use PDF;
 
 
 
@@ -49,23 +48,40 @@ class HomePageController extends Controller
 
      public function laundry()
      {
-        $data['laundry'] = Laundry::all();
-        $data['page'] = "Store";
-        $id_user=Auth::user()->id;
-        $data['id_user']=Auth::user()->id;
-        $data['profile'] = User::where('id', $id_user)->get();
-        return view('homepage_store',$data);
+        $cekAuth=Auth::check();
+        if ($cekAuth==1) {
+            $id_user=Auth::user()->id;
+            $data['laundry'] = Laundry::all();
+            $data['page'] = "Store";
+            $data['id_user']=Auth::user()->id;
+            $data['profile'] = User::where('id', $id_user)->get();
+            return view('homepage_store',$data);
+        }else{
+            $data['laundry'] = Laundry::all();
+            $data['page'] = "Store";
+            return view('homepage_store_guest',$data);
+        }
 
      }
 
      public function detail()
     {
+        $cekAuth=Auth::check();
         $id=request()->get('str');
-        $data['store'] = request()->get('str');
-        $data['laundry'] = Laundry::where('id', $id)->get();
-        $data['paket'] = Paket::where('id_toko', $id)->get();
-        $data['page'] = "Store";
-        return view('homepage_product',$data);
+        
+        if ($cekAuth==1) {
+            $data['store'] = request()->get('str');
+            $data['laundry'] = Laundry::where('id', $id)->get();
+            $data['paket'] = Paket::where('id_toko', $id)->get();
+            $data['page'] = "Store";
+            return view('homepage_product',$data);
+        }else{
+            $data['store'] = request()->get('str');
+            $data['laundry'] = Laundry::where('id', $id)->get();
+            $data['paket'] = Paket::where('id_toko', $id)->get();
+            $data['page'] = "Store";
+            return view('homepage_product_guest',$data);
+        }
     }
 
 
@@ -150,6 +166,22 @@ class HomePageController extends Controller
 
     }
 
+    public function invoice(string $id)
+    {
+        $id_user=Auth::user()->id;
+        $data['page']="Orderan";
+        $data['transaksi'] = DB::table('transaksis')
+        ->join('users', 'transaksis.id_user', '=', 'users.id')
+        ->join('laundries', 'transaksis.id_toko', '=', 'laundries.id')
+        ->join('pakets', 'transaksis.id_paket', '=', 'pakets.id')
+        ->select('laundries.nama as nama_laundry','users.nama as nama_user','pakets.nama_paket','transaksis.*')
+        ->where('transaksis.id_user',$id_user)
+        ->get();
+ 
+	    $pdf = PDF::loadview('orderan',$data)->setOptions(['defaultFont' => 'sans-serif']);
+	    return $pdf->download('laporan-pegawai.pdf');
+    }
+
 
     /**
      * Display the specified resource.
@@ -158,6 +190,8 @@ class HomePageController extends Controller
     {
         //
     }
+
+    
 
     /**
      * Show the form for editing the specified resource.

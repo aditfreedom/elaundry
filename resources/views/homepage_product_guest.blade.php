@@ -64,18 +64,13 @@
                         <div class="navbar-nav mx-auto">
                             <a href="{{url('/')}}" class="nav-item nav-link {{$page == 'Home'?'active':''}}">Home</a>
                             <a href="{{url('/store')}}" class="nav-item nav-link {{$page == 'Store'?'active':''}}">Laundry</a>
-                            <a href="{{url('profile')}}" class="nav-item nav-link {{$page == 'Profile'?'active':''}}">Profil</a>
-                            <a href="{{url('logout')}}" class="nav-item nav-link">Logout</a>
                         </div>
 
                         <div class="d-flex m-3 me-0">
                             <button hidden class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
-                            <a href="{{url('orderan')}}" class="position-relative me-4 my-auto">
-                                <i class="fa fa-shopping-bag fa-2x"></i>
-                            </a>
 
                             <a href="{{url('profile')}}" class="my-auto">
-                                <i class="fas fa-user fa-2x"></i> {{Auth::user()->nama}}
+                                <i class="fas fa-user fa-2x"></i> Login
                             </a>
                         </div>
                     </div>
@@ -86,38 +81,14 @@
 
         <!-- Fruits Shop Start-->
         <div class="container-fluid fruite py-5 hero-header">
-            <div class="container-xxl flex-grow-1">
-                @if ($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <strong>Gagal Menambahkan Orderan!</strong>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif
-        
-                @if (session()->has('success'))
-                <div class="alert alert-info alert-dismissible fade show" role="alert">
-                              @if (is_array(session('success')))
-                                    @foreach (session('success') as $message)
-                                        {{ $message }}
-                                    @endforeach
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                  </button>
-                                @else
-                                    {{ session('success') }}
-                                @endif
-                            </div>
-                        @endif
-
             <div class="container py-5">
                 <div class="tab-class text-center">
                     <div class="row g-4">
                         <div class="text-start">
-                            <h1>Daftar Transaksi Anda</h1>
+                            @foreach ($laundry as $data)
+                            <h1>Paket Laundry : {{$data->nama}}
+                            </h1>
+                            @endforeach
                         </div>
                         <div class="col-lg-8 text-end">
                             
@@ -128,45 +99,22 @@
                             <div class="row g-4">
                                 <div class="col-lg-12">
                                     <div class="row g-4">
-                                        <table class="table table-striped" id="example">
-                                            <thead>
-                                              <tr>
-                                                <th>No</th>
-                                                <th>Nama Laundry</th>
-                                                <th>Nama Paket</th>
-                                                <th>Berat</th>
-                                                <th>Total</th>
-                                                <th>Payment</th>
-                                                <th>Status</th>
-                                                <th>#</th>
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-                                              @foreach ($transaksi as $data)
-                                              @php
-                                                $data_status = $data->status;
-                                                $class_status ="";
-                                                if ($data_status == "Antrian") {
-                                                    $class_status="btn-warning";
-                                                }elseif ($data_status == "Selesai") {
-                                                    $class_status="btn-danger";
-                                                }else{
-                                                    $class_status="btn-info";
-                                                }
-                                              @endphp
-                                              <tr>
-                                                  <td>{{$loop->iteration}}</td>
-                                                  <td>{{$data->nama_laundry}}</td>
-                                                  <td>{{$data->nama_paket}}</td>
-                                                  <td>{{$data->berat}} Kg</td>
-                                                  <td>Rp. {{$data->total}}</td>
-                                                  <td>{{$data->payment}}</td>
-                                                  <td><p class="btn {{$class_status}}">{{$data->status}}</p></td>
-                                                  <td class="text-center"><a class="btn btn-success btn-sm mb-1 w-100" href="{{url('invoice').'/'.$data->id}}" >Invoice</a></td>
-                                              </tr>
-                                              @endforeach
-                                            </tbody>
-                                          </table>                          
+                                        @foreach ($paket as $data)
+                                        <div class="col-md-6 col-lg-4 col-xl-3">
+                                            <div class="rounded position-relative fruite-item">
+                                                <div class="fruite-img">
+                                                    <img src="{{url('storage/'.$data->foto)}}" class="img-fluid rounded-top" alt="">
+                                                </div>
+                                                <div class="p-4 border border-secondary border-top-0 rounded-bottom ">
+                                                    <h5>{{$data->nama_paket}}</h5>
+                                                    <p class="btn btn-success fw-bold">Rp. {{$data->harga}}/Kg</p>
+                                                    <div class="d-flex flex-lg-wrap justify-content-center">
+                                                        <a href="{{url('purchase?prd='.$data->id.'&str='.$store)}}" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Order Paket</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach                               
                                     </div>
                                 </div>
                             </div>
@@ -175,12 +123,11 @@
                 </div>      
             </div>
         </div>
-        </div>
         <!-- Fruits Shop End-->
 
 
         <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-white-50 footer pt-5">
+        <div class="container-fluid bg-dark text-white-50 footer pt-5 ">
             <div class="container py-5">
                 <div class="pb-4 mb-4" style="border-bottom: 1px solid rgba(226, 175, 24, 0.5) ;">
                     <div class="row g-4">
