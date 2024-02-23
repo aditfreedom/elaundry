@@ -111,7 +111,7 @@
                     </select>
                 </div>
                 <div class="form-group mb-3 mt-2">
-                  <button class="btn btn-primary d-grid w-100 form-control" name="login">Login</button>
+                  <button class="btn btn-primary d-grid w-100 form-control" name="registration">Registrasi</button>
                 </div>
                 <p class="text-center">
                   <span>Sudah punya akun?</span>
