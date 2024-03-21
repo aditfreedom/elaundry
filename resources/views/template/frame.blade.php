@@ -103,7 +103,12 @@
                   <div data-i18n="Beranda">Beranda</div>
                 </a>
               </li>
-
+              <li class="menu-item">
+                <a href="{{url('/')}}" class="menu-link">
+                  <i class="menu-icon tf-icons mdi mdi-web"></i>
+                  <div data-i18n="Halaman Utama">Halaman Utama</div>
+                </a>
+              </li>
             <!-- Apps & Pages -->
             <li class="menu-header fw-light mt-4">
               <span class="menu-header-text">Pengaturan Toko &amp; Transaksi</span>
